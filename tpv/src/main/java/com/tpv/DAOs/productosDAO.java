@@ -1,6 +1,6 @@
 package com.tpv.DAOs;
 
-import com.tpv.conectarbdd.bdd;
+import com.tpv.conectarbdd.Bdd;
 import com.tpv.modelos.Productos;
 
 import java.sql.*;
