@@ -1,5 +1,5 @@
 package com.tpv.DAOs;
 
-public class ventasDAO {
+public class VentasDAO {
     
 }
