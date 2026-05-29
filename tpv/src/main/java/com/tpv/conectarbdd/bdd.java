@@ -1,4 +1,4 @@
-package com.tienda.tpv.config;
+package com.tpv.conectarbdd;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Gestiona la conexión a la base de datos PostgreSQL.
+ * Gestiona la conexión a la base de datos MySQL.
  * Implementa el patrón Singleton para reutilizar la misma conexión
  * durante toda la ejecución de la aplicación.
  *
@@ -18,25 +18,25 @@ import java.util.Properties;
  *
  * <p>Uso típico:</p>
  * <pre>
- *   Connection conn = DatabaseConnection.getInstance().getConnection();
+ *   Connection conn = bdd.getInstance().getConnection();
  * </pre>
  *
  * @author Sergio Ropero
  */
-public class DatabaseConnection {
+public class Bdd {
 
     // ----------------------------------------------------------------
     //  Valores por defecto (se sobreescriben con db.properties)
     // ----------------------------------------------------------------
-    private static final String DEFAULT_URL      = "jdbc:postgresql://localhost:5432/tpv_db";
-    private static final String DEFAULT_USER     = "postgres";
-    private static final String DEFAULT_PASSWORD = "postgres";
+    private static final String DEFAULT_URL      = "jdbc:mysql://localhost:3306/tpv_db";
+    private static final String DEFAULT_USER     = "root";
+    private static final String DEFAULT_PASSWORD = "";
     private static final String PROPERTIES_FILE  = "db.properties";
 
     // ----------------------------------------------------------------
     //  Singleton
     // ----------------------------------------------------------------
-    private static DatabaseConnection instance;
+    private static Bdd instance;
 
     private Connection connection;
     private String url;
@@ -46,7 +46,7 @@ public class DatabaseConnection {
     // ----------------------------------------------------------------
     //  Constructor privado
     // ----------------------------------------------------------------
-    private DatabaseConnection() {
+    private Bdd() {
         loadProperties();
     }
 
@@ -55,14 +55,14 @@ public class DatabaseConnection {
     // ----------------------------------------------------------------
 
     /**
-     * Devuelve la única instancia de {@code DatabaseConnection}.
+     * Devuelve la única instancia de {@code bdd}.
      * Crea la instancia la primera vez que se llama (lazy initialization).
      *
      * @return instancia singleton
      */
-    public static synchronized DatabaseConnection getInstance() {
+    public static synchronized Bdd getInstance() {
         if (instance == null) {
-            instance = new DatabaseConnection();
+            instance = new Bdd();
         }
         return instance;
     }
@@ -72,7 +72,7 @@ public class DatabaseConnection {
     // ----------------------------------------------------------------
 
     /**
-     * Devuelve una conexión activa a PostgreSQL.
+     * Devuelve una conexión activa a MySQL.
      * Si la conexión está cerrada o es nula, abre una nueva.
      *
      * @return {@link Connection} lista para usar
@@ -138,17 +138,16 @@ public class DatabaseConnection {
     }
 
     /**
-     * Abre la conexión física con PostgreSQL.
+     * Abre la conexión física con MySQL.
      *
      * @throws SQLException si el driver no está disponible o los datos son incorrectos
      */
     private void connect() throws SQLException {
         try {
-            // Registrar el driver de PostgreSQL
-            Class.forName("org.postgresql.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new SQLException(
-                "[DB] Driver PostgreSQL no encontrado. Añade postgresql-xx.jar al classpath.", e
+                "[DB] Driver MySQL no encontrado. Añade mysql-connector-j-xx.jar al classpath.", e
             );
         }
 
