@@ -1,0 +1,5 @@
+{
+  "maven.executable.path": "C:\\Users\\wdesi\\Downloads\\apache-maven-3.9.16-bin\\apache-maven-3.9.16\\bin\\mvn.cmd",
+  "java.home": "C:\\Program Files\\Java\\jdk-21.0.10",
+  "maven.terminal.useJavaHome": true
+}
