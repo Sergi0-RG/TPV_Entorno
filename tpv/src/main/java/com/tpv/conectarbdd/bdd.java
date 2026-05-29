@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class Bdd {
 
-    private static final String DEFAULT_URL      = "jdbc:mysql://localhost:3306/tpv_db";
+    private static final String DEFAULT_URL = "jdbc:mysql://localhost:3306/minitpv?useSSL=false&serverTimezone=UTC";    
     private static final String DEFAULT_USER     = "root";
     private static final String DEFAULT_PASSWORD = "";
     private static final String PROPERTIES_FILE  = "db.properties";
